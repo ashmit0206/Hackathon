@@ -1,0 +1,118 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f2f4f8;
+}
+
+/* PAGE */
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* SECTION */
+.home-section {
+  flex: 1;
+  width: 100%;
+  padding: 60px 0;
+}
+
+/* CENTERED CONTENT WRAPPER */
+.home-section > * {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 40px;
+}
+
+/* TITLE */
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 50px;
+  color: #222;
+}
+
+/* GRID — THIS IS THE KEY */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+}
+
+/* CARD */
+.health-card {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.health-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.12);
+}
+
+.health-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.health-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* BUTTON */
+.health-card button {
+  margin-top: 20px;
+  padding: 10px 22px;
+  font-size: 14px;
+  background: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.health-card button:hover {
+  background: #0b5ed7;
+}
+
+/* FOOTER */
+.home-footer {
+  background: #e6e6e6;
+  text-align: center;
+  padding: 18px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-section > * {
+    padding: 0 20px;
+  }
+}
