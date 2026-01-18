@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Navbar from "../components/Navbar";
 import loginBg from "../login_bg.jpg";
 
@@ -11,7 +10,19 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  // Demo credentials
+  const DEMO_USERS = {
+    patient: {
+      email: "binit006@gmail.com",
+      password: "Password123"
+    },
+    provider: {
+      email: "provider@gmail.com",
+      password: "Provider123"
+    }
+  };
+
+  const handleLogin = (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
@@ -19,33 +30,25 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`,
-        {
-          email,
-          password,
-          role
-        },
-        {
-          withCredentials: true
+    setTimeout(() => {
+      const demoUser = DEMO_USERS[role];
+
+      if (
+        email === demoUser.email &&
+        password === demoUser.password
+      ) {
+        // Successful demo login
+        if (role === "provider") {
+          navigate("/provider-dashboard");
+        } else {
+          navigate("/dashboard");
         }
-      );
-
-      const userRole = res.data.data.user.role;
-
-      if (userRole === "provider") {
-        navigate("/provider-dashboard");
       } else {
-        navigate("/dashboard");
+        setError("Invalid demo credentials");
       }
-    } catch (err) {
-      setError(
-        err.response?.data?.message || "Login failed. Try again."
-      );
-    } finally {
+
       setLoading(false);
-    }
+    }, 800); // simulate API delay
   };
 
   return (
@@ -64,9 +67,7 @@ const Login = () => {
             <h2 className="text-5xl font-bold mb-6">
               Smart Healthcare, Better Living
             </h2>
-            <p className="text-lg">
-              Secure access for patients and healthcare providers.
-            </p>
+            
           </div>
         </div>
 
@@ -74,7 +75,7 @@ const Login = () => {
         <div className="flex-1 flex items-center justify-center">
           <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 mx-6">
             <h1 className="text-3xl font-bold text-center mb-6">
-              Login
+              Demo Login
             </h1>
 
             {/* ROLE SELECTION */}
@@ -109,7 +110,7 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
-                defaultValue="binit006@gmail.com"
+                defaultValue={DEMO_USERS[role].email}
                 className="w-full p-3 border rounded-lg"
                 required
               />
@@ -117,7 +118,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                defaultValue="Password123"
+                defaultValue={DEMO_USERS[role].password}
                 className="w-full p-3 border rounded-lg"
                 required
               />
