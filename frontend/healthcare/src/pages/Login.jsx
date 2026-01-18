@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginBg from "../login_bg.jpg";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
   const navigate = useNavigate();
