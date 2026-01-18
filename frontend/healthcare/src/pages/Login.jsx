@@ -1,132 +1,110 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import loginBg from "../login_bg.jpg";
 import Navbar from "../components/Navbar";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [role, setRole] = useState("patient");
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const username = e.target.username.value;
+    const email = e.target.email.value;
     const password = e.target.password.value;
 
-    // ✅ HARD-CODED DEMO CREDENTIALS
-    if (username === "demo" && password === "demo123") {
-      setError("");
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/api/auth/login",
+        {
+          email,
+          password
+        },
+        {
+          withCredentials: true // cookies / session
+        }
+      );
 
-      if (role === "provider") {
+      // ✅ role comes from backend, not user input
+      const userRole = res.data.data.user.role;
+
+      if (userRole === "provider") {
         navigate("/provider-dashboard");
       } else {
         navigate("/dashboard");
       }
-    } else {
-      setError("Invalid username or password");
+    } catch (err) {
+      setError(
+        err.response?.data?.message || "Login failed. Try again."
+      );
     }
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-r from-green-700 via-teal-600 to-blue-700">
-      
-      {/* LEFT INFO SECTION */}
-      <div className="hidden md:flex flex-1 items-center justify-center p-12">
-        <div className="max-w-lg text-white">
-          <img
-            src={loginBg}
-            alt="Health and Fitness"
-            className="w-full h-64 object-cover rounded-lg mb-6"
-          />
-          <h2 className="text-5xl font-bold mb-6 leading-tight">
-            Smart Healthcare, Better Living
-          </h2>
-          <p className="text-lg">
-            A simple health & fitness portal for patients and providers.
-          </p>
-        </div>
-      </div>
+    <>
+      <Navbar />
 
-      {/* LOGIN CARD */}
-      <div className="flex-1 flex items-center justify-center">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 mx-6">
-          
-          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-            Login
-          </h1>
-
-          {/* ROLE SELECT */}
-          <div className="flex justify-center gap-4 mb-6">
-            <button
-              type="button"
-              onClick={() => setRole("patient")}
-              className={`px-5 py-2 rounded-lg font-medium border transition ${
-                role === "patient"
-                  ? "bg-teal-600 text-white border-teal-600"
-                  : "bg-white text-gray-700 border-gray-300"
-              }`}
-            >
-              Patient
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setRole("provider")}
-              className={`px-5 py-2 rounded-lg font-medium border transition ${
-                role === "provider"
-                  ? "bg-teal-600 text-white border-teal-600"
-                  : "bg-white text-gray-700 border-gray-300"
-              }`}
-            >
-              Provider
-            </button>
+      <div className="min-h-screen flex bg-gradient-to-r from-green-700 via-teal-600 to-blue-700">
+        {/* LEFT INFO */}
+        <div className="hidden md:flex flex-1 items-center justify-center p-12">
+          <div className="max-w-lg text-white">
+            <img
+              src={loginBg}
+              alt="Health"
+              className="w-full h-64 object-cover rounded-lg mb-6"
+            />
+            <h2 className="text-5xl font-bold mb-6">
+              Smart Healthcare, Better Living
+            </h2>
+            <p className="text-lg">
+              Secure login for patients and healthcare providers.
+            </p>
           </div>
+        </div>
 
-          {/* LOGIN FORM */}
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-gray-700 mb-1">Username</label>
+        {/* LOGIN CARD */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 mx-6">
+            <h1 className="text-3xl font-bold text-center mb-6">
+              Login
+            </h1>
+
+            {/* FORM */}
+            <form onSubmit={handleLogin} className="space-y-5">
               <input
-                type="text"
-                name="username"
-                placeholder="demo"
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full p-3 border rounded-lg"
                 required
               />
-            </div>
 
-            <div>
-              <label className="block text-gray-700 mb-1">Password</label>
               <input
                 type="password"
                 name="password"
-                placeholder="demo123"
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                placeholder="Password"
+                className="w-full p-3 border rounded-lg"
                 required
               />
-            </div>
 
-            <button
-              type="submit"
-              className="w-full bg-teal-600 text-white p-3 rounded-lg font-semibold hover:bg-teal-700 transition duration-300"
-            >
-              Login as {role === "provider" ? "Provider" : "Patient"}
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="w-full bg-teal-600 text-white p-3 rounded-lg font-semibold"
+              >
+                Login
+              </button>
+            </form>
 
-          {error && (
-            <p className="text-red-500 text-center mt-4">
-              {error}
-            </p>
-          )}
-
-          <p className="text-center text-sm text-gray-600 mt-6">
-            Demo credentials: <b>demo / demo123</b>
-          </p>
+            {error && (
+              <p className="text-red-500 text-center mt-4">
+                {error}
+              </p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
