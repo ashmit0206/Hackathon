@@ -1,4 +1,4 @@
-import { User } from "../models/user.models.js";
+import { User } from "../models/user.model.js";
 import { HealthProfile } from "../models/healthProfile.model.js";
 import { apierror } from "../utils/apiError.js";
 import { apiresponse } from "../utils/apiResponse.js";
