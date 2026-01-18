@@ -11,16 +11,10 @@ export default function Navbar() {
 
         <nav className="nav-links">
           <Link to="/">Home</Link>
-          <a href="/#topics">Health Topics</a>
-          <a href="/#services">Services</a>
-          <a href="/#contact">Contact</a>
-
-          <Link
-            to="/login"
-            className={`login-btn ${
-              location.pathname === "/login" ? "active" : ""
-            }`}
-          >
+          <Link to="/health-topics">Health Topics</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="/login" className="login-btn">
             Login
           </Link>
         </nav>
