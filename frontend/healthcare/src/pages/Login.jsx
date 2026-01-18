@@ -5,17 +5,25 @@ import loginBg from "../login_bg.jpg";
 const Login = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("patient");
+  const [error, setError] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // 🔗 Backend integration later:
-    // axios.post("/api/login", { username, password, role })
+    const username = e.target.username.value;
+    const password = e.target.password.value;
 
-    if (role === "provider") {
-      navigate("/provider-dashboard");
+    // ✅ HARD-CODED DEMO CREDENTIALS
+    if (username === "demo" && password === "demo123") {
+      setError("");
+
+      if (role === "provider") {
+        navigate("/provider-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } else {
-      navigate("/dashboard");
+      setError("Invalid username or password");
     }
   };
 
@@ -34,8 +42,7 @@ const Login = () => {
             Smart Healthcare, Better Living
           </h2>
           <p className="text-lg">
-            Access personalized wellness tracking and professional healthcare
-            services through a secure digital platform.
+            A simple health & fitness portal for patients and providers.
           </p>
         </div>
       </div>
@@ -81,7 +88,8 @@ const Login = () => {
               <label className="block text-gray-700 mb-1">Username</label>
               <input
                 type="text"
-                placeholder="Enter your username"
+                name="username"
+                placeholder="demo"
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                 required
               />
@@ -91,7 +99,8 @@ const Login = () => {
               <label className="block text-gray-700 mb-1">Password</label>
               <input
                 type="password"
-                placeholder="Enter your password"
+                name="password"
+                placeholder="demo123"
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                 required
               />
@@ -105,8 +114,14 @@ const Login = () => {
             </button>
           </form>
 
+          {error && (
+            <p className="text-red-500 text-center mt-4">
+              {error}
+            </p>
+          )}
+
           <p className="text-center text-sm text-gray-600 mt-6">
-            Secure access for {role === "provider" ? "healthcare professionals" : "patients"}
+            Demo credentials: <b>demo / demo123</b>
           </p>
         </div>
       </div>

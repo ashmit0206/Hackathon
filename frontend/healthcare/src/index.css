@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.sidebar-btn {
+  @apply w-full text-left px-4 py-2 rounded-lg hover:bg-gray-700 transition;
+}
+
+.card {
+  @apply bg-white p-5 rounded-xl shadow;
+}
+
+.progress {
+  @apply w-full bg-gray-200 h-3 rounded-full mt-3;
+}
+
+.progress-fill {
+  @apply h-3 bg-teal-500 rounded-full;
+}
+.sidebar-btn {
+  @apply w-full text-left px-4 py-2 rounded-lg hover:bg-gray-700 transition;
+}
+
+.card {
+  @apply bg-white p-5 rounded-xl shadow;
+}
