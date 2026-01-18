@@ -1,4 +1,4 @@
-import User from "../models/user.models.js";
+import {User} from "../models/user.models.js";
 import { apierror } from "../utils/apierror.js";
 import { apiresponse } from "../utils/apiresponse.js";
 import { asynchandler } from "../utils/asynchandler.js";
