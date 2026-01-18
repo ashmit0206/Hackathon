@@ -6,7 +6,7 @@ const PatientProfile = () => {
 
   // Mock Data for the patient
   const patientData = {
-    name: "David Smith",
+    name: "Binit",
     age: 34,
     gender: "Male",
     location: "New York, USA",

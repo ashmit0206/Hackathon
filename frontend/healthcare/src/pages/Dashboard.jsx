@@ -32,7 +32,7 @@ const Dashboard = () => {
 
       {/* MAIN CONTENT */}
       <main className="flex-1 p-10">
-        <h1 className="text-3xl font-bold mb-8">Welcome, David 👋</h1>
+        <h1 className="text-3xl font-bold mb-8">Welcome, Binit 👋</h1>
 
         {/* WELLNESS GOALS */}
         <section>
