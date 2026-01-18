@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProviderDashboard from "./pages/ProviderDashboard";
 import PatientStatus from "./pages/PatientStatus";
+import PatientProfile from "./pages/PatientProfile"; // Import the new file
 
 function App() {
   return (
@@ -24,10 +25,13 @@ function App() {
         {/* Provider -> Patient Status */}
         <Route path="/patient/:id" element={<PatientStatus />} />
 
+        <Route path="/profile" element={<PatientProfile />} /> {/* New Route */}
+
         {/* Other pages */}
         <Route path="/profile" element={<div>Profile Page</div>} />
         <Route path="/goals" element={<div>Goals Page</div>} />
         <Route path="/reminders" element={<div>Reminders Page</div>} />
+        
 
         {/* Logout */}
         <Route path="/logout" element={<Login />} />
